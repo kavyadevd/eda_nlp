@@ -2,7 +2,8 @@
 # Jason Wei and Kai Zou
 
 from eda import *
-
+import nltk
+nltk.download('omw-1.4')
 #arguments to be parsed from command line
 import argparse
 ap = argparse.ArgumentParser()
