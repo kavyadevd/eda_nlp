@@ -1,6 +1,11 @@
 # EDA: Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks
 [![Conference](http://img.shields.io/badge/EMNLP-2019-4b44ce.svg)](https://arxiv.org/abs/1901.11196)
 
+
+
+>> This branch reads the input data from a csv file and saves generated output to a new csv file<br>
+>> csv data source: [Kaggle arxiv-paper-abstracts](https://www.kaggle.com/datasets/spsayakpaul/arxiv-paper-abstracts)
+
 For a survey of data augmentation in NLP, see this [repository](https://github.com/styfeng/DataAug4NLP/blob/main/README.md)/this [paper](http://arxiv.org/abs/2105.03075).
 
 This is the code for the EMNLP-IJCNLP paper [EDA: Easy Data Augmentation techniques for boosting performance on text classification tasks.](https://arxiv.org/abs/1901.11196) 

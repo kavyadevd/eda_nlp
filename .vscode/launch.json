@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--input", "data/DataToAugment.csv",
+                "--output", "sst2_augmented.csv",
+                "--num_aug", "9",
+                "--alpha_sr" ,"0.05",
+                "--alpha_rd" ,"0.1",
+                "--alpha_ri", "0.0",
+                "--alpha_rs", "0.0"
+             ]
+        }
+    ]
+}
