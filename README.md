@@ -5,6 +5,8 @@
 
 >> This branch reads the input data from a csv file and saves generated output to a new csv file<br>
 >> csv data source: [Kaggle arxiv-paper-abstracts](https://www.kaggle.com/datasets/spsayakpaul/arxiv-paper-abstracts)
+>> added new argument : --col_to_augment which should be set as the column name with text to be augmented.
+
 
 For a survey of data augmentation in NLP, see this [repository](https://github.com/styfeng/DataAug4NLP/blob/main/README.md)/this [paper](http://arxiv.org/abs/2105.03075).
 

@@ -17,6 +17,7 @@ ap.add_argument("--alpha_sr", required=False, type=float, help="percent of words
 ap.add_argument("--alpha_ri", required=False, type=float, help="percent of words in each sentence to be inserted")
 ap.add_argument("--alpha_rs", required=False, type=float, help="percent of words in each sentence to be swapped")
 ap.add_argument("--alpha_rd", required=False, type=float, help="percent of words in each sentence to be deleted")
+ap.add_argument("--col_to_augment", required=True, type=str, help="column to augment")
 args = ap.parse_args()
 
 #the output file
@@ -67,26 +68,26 @@ if args.alpha_rd is not None:
 if alpha_sr == alpha_ri == alpha_rs == alpha_rd == 0:
      ap.error('At least one alpha should be greater than zero')
 
-lst_id = []
-lst_res = []
+
+data = []
 
 #generate more data with standard augmentation
-def gen_eda_csv(id_,res_,train_orig, output_file, alpha_sr, alpha_ri, alpha_rs, alpha_rd, num_aug=9):
-    print(id_,res_)
-    global lst_id
-    global lst_res
-    aug_sentences = eda(res_, alpha_sr=alpha_sr, alpha_ri=alpha_ri, alpha_rs=alpha_rs, p_rd=alpha_rd, num_aug=num_aug)
-    print("generated augmented sentences with eda for " + train_orig + " to " + output_file + " with num_aug=" + str(num_aug))
+def gen_eda_csv(row_,train_orig, output_file, alpha_sr, alpha_ri, alpha_rs, alpha_rd, num_aug=9):
+    print(row_[args.col_to_augment])
+    aug_sentences = eda(row_[args.col_to_augment], alpha_sr=alpha_sr, alpha_ri=alpha_ri, alpha_rs=alpha_rs, p_rd=alpha_rd, num_aug=num_aug)
+    print("generated augmented sentences with eda for " + train_orig + " to " + str(output_file) + " with num_aug=" + str(num_aug))
+    global data
     for aug_sentence in aug_sentences:
-        lst_id.append(id_)
-        lst_res.append(aug_sentence)
+        row_[args.col_to_augment] = aug_sentence
+        data.append(row_.values)
     return True
 
 #main function
 if __name__ == "__main__":
     
     #generate augmented sentences and output into a new file
-    eda_check = (dataset.apply(lambda x: gen_eda_csv(x.ID, x.Resolution,args.input, output, alpha_sr=alpha_sr, alpha_ri=alpha_ri, alpha_rs=alpha_rs, alpha_rd=alpha_rd, num_aug=num_aug), axis=1))
-    augmented_df = pd.DataFrame({"ID":lst_id,"Resolution":lst_res})
-    #gen_eda(args.input, output, alpha_sr=alpha_sr, alpha_ri=alpha_ri, alpha_rs=alpha_rs, alpha_rd=alpha_rd, num_aug=num_aug)
-    augmented_df.to_csv(output)
+    eda_data_check = (dataset.apply(lambda x: gen_eda_csv(x,args.input, output, alpha_sr=alpha_sr, alpha_ri=alpha_ri, alpha_rs=alpha_rs, alpha_rd=alpha_rd, num_aug=num_aug), axis=1))
+    data_columns = dataset.columns
+    data_aug = pd.DataFrame(data,columns=data_columns)
+    data_aug.to_csv(output)
+    print("Done.")
